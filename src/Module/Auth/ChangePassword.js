@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -14,17 +14,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
+import { Button, Icon } from 'react-native-elements';
+import MainHeader from '../../Navigation/MainHeader';
 
-
-const LoginScreen = ({ navigation, props }) => {
-
-    const { colors } = useTheme();
-
+const ChangePassword = ({ navigation, props }) => {
     const [data, setData] = React.useState({
         username: '',
         password: '',
         check_textInputChange: false,
         secureTextEntry: true,
+        secureTextEntry1: true,
         isValidUser: true,
         isValidPassword: true,
     });
@@ -36,51 +35,38 @@ const LoginScreen = ({ navigation, props }) => {
         });
     }
 
+    const updateSecureTextEntry1 = () => {
+        setData({
+            ...data,
+            secureTextEntry1: !data.secureTextEntry1
+        });
+    }
+    const colors = useTheme();
+
     return (
         <>
+            <MainHeader />
+            {/* <View style={styles.container}>
+                <Text style={{fontSize: 20}}>Change Password Page</Text>
+            </View> */}
             <View style={styles.container}>
                 <StatusBar backgroundColor='#009387' barStyle="light-content" />
                 <View style={styles.header}>
-                    <Text style={styles.text_header}>Welcome to Ecom!</Text>
+                    <Text style={styles.text_header}>
+                        Minimum 8 characters and contain atleast 1 Number,
+                        1 Capital Letter & 1 Special Character.
+                    </Text>
                 </View>
-
                 <Animatable.View
                     animation="fadeInUpBig"
                     style={[styles.footer, {
                         backgroundColor: colors.background
                     }]}
                 >
-                    <Text style={[styles.text_footer, { color: colors.text }]}>Username</Text>
-                    <View style={styles.action}>
-                        <FontAwesome
-                            name="user-o"
-                            color={colors.text}
-                            size={20}
-                        />
-                        <TextInput
-                            placeholder="Your Username"
-                            placeholderTextColor="#666666"
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
-                            autoCapitalize="none"
-
-                        />
-                        {/* <Animatable.View
-                                animation="bounceIn"
-                                >
-                                <Feather 
-                                    name="check-circle"
-                                    color="green"
-                                    size={20}
-                                />
-                            </Animatable.View> */}
-                    </View>
-
                     <Text style={[styles.text_footer, {
                         color: colors.text,
-                        marginTop: 35
-                    }]}>Password</Text>
+                        // marginTop: 35
+                    }]}>New Password</Text>
                     <View style={styles.action}>
                         <Feather
                             name="lock"
@@ -88,7 +74,7 @@ const LoginScreen = ({ navigation, props }) => {
                             size={20}
                         />
                         <TextInput
-                            placeholder="Your Password"
+                            placeholder="New Password"
                             placeholderTextColor="#666666"
                             secureTextEntry={data.secureTextEntry ? true : false}
                             style={[styles.textInput, {
@@ -102,27 +88,61 @@ const LoginScreen = ({ navigation, props }) => {
                             {data.secureTextEntry ?
                                 <Feather
                                     name="eye-off"
-                                    color="grey"
+                                    color="black"
                                     size={20}
                                 />
                                 :
                                 <Feather
                                     name="eye"
-                                    color="grey"
+                                    color="black"
                                     size={20}
                                 />
                             }
                         </TouchableOpacity>
                     </View>
 
-                    <TouchableOpacity>
-                        <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password?</Text>
-                    </TouchableOpacity>
+
+                    <Text style={[styles.text_footer, {
+                        color: colors.text,
+                        marginTop: 10
+                    }]}>Confirm New Password</Text>
+                    <View style={styles.action}>
+                        <Feather
+                            name="lock"
+                            color={colors.text}
+                            size={20}
+                        />
+                        <TextInput
+                            placeholder="Confirm New Password"
+                            placeholderTextColor="#666666"
+                            style={[styles.textInput, {
+                                color: colors.text
+                            }]}
+                            autoCapitalize="none"
+                        />
+                        <TouchableOpacity
+                            onPress={updateSecureTextEntry1}
+                        >
+                            {data.secureTextEntry1 ?
+                                <Feather
+                                    name="eye-off"
+                                    color="black"
+                                    size={20}
+                                />
+                                :
+                                <Feather
+                                    name="eye"
+                                    color="black"
+                                    size={20}
+                                />
+                            }
+                        </TouchableOpacity>
+                    </View>
 
                     <View style={styles.button}>
                         <TouchableOpacity
                             style={styles.signIn}
-                            onPress={() => navigation.navigate('home')}
+                        // onPress={() => navigation.navigate('home')}
                         >
                             <LinearGradient
                                 colors={['#08d4c4', '#01ab9d']}
@@ -130,33 +150,16 @@ const LoginScreen = ({ navigation, props }) => {
                             >
                                 <Text style={[styles.textSign, {
                                     color: '#fff'
-                                }]}>Sign In</Text>
+                                }]}>Save Password</Text>
                             </LinearGradient>
                         </TouchableOpacity>
-
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('signup')}
-                            style={[styles.signIn, {
-                                borderColor: '#009387',
-                                borderWidth: 1,
-                                marginTop: 15
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#009387'
-                            }]}>Sign Up</Text>
-                        </TouchableOpacity>
-
-
                     </View>
-
                 </Animatable.View>
             </View>
         </>
-    );
-}
-
-export default LoginScreen;
+    )
+};
+export default ChangePassword;
 
 const styles = StyleSheet.create({
     container: {
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 20
     },
     footer: {
         flex: 3,
@@ -180,7 +183,7 @@ const styles = StyleSheet.create({
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 15
     },
     text_footer: {
         color: '#05375a',
@@ -225,4 +228,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     }
-});
+})

@@ -1,6 +1,6 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../Module/Auth/LoginScreen';
 import AppNavigator from './AppNavigator';
 import SignupScreen from '../Module/Auth/SignupScreen';
@@ -14,9 +14,9 @@ function RootStackScreen(props) {
                 screenOptions={{
                     headerShown: false,
                 }}>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="home" component={AppNavigator} />
-            <Stack.Screen name="signup" component= {SignupScreen} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="home" component={AppNavigator} />
+                <Stack.Screen name="signup" component={SignupScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
