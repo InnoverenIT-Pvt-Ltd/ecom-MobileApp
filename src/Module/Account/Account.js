@@ -1,21 +1,37 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import MainHeader from '../../Navigation/MainHeader';
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
-export default function Account() {
+export default function Account(props) {
+    const navigate = props.navigation.navigate;
     return (
         <>
             <MainHeader />
-            <View style={styles.container}>
-                <Text style={{fontSize: 20}}>Account page</Text>
-            </View>
+            <Card style={styles.card}
+                onPress={() => props.navigation.navigate('Profile')}
+            >
+                {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
+                <Card.Content>
+                    <Title>User Profile</Title>
+                    <Paragraph>Edit name, mobile</Paragraph>
+                </Card.Content>
+            </Card>
+
+            <Card style={styles.card}
+             onPress={() => props.navigation.navigate('Addresses')}>
+                {/* <Card.Cover source={{ uri: 'https://picsum.photos/700' }} /> */}
+                <Card.Content>
+                    <Title>Addresses</Title>
+                    <Paragraph>Edit Address For Order</Paragraph>
+                </Card.Content>
+            </Card>
         </>
     )
 };
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        marginTop: '55%',
+    card: {
+        marginTop: '20%',
     },
 })

@@ -164,7 +164,7 @@ export default ChangePassword;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
+        backgroundColor: '#fff'
     },
     header: {
         flex: 1,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
         paddingVertical: 30
     },
     text_header: {
-        color: '#fff',
+        color: 'grey',
         fontWeight: 'bold',
         fontSize: 15
     },

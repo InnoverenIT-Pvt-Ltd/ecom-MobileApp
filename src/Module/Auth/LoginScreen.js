@@ -1,4 +1,6 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {
     View,
     Text,
@@ -14,7 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
-
+import { login } from './AuthAction';
 
 const LoginScreen = ({ navigation, props }) => {
 
@@ -35,6 +37,18 @@ const LoginScreen = ({ navigation, props }) => {
             secureTextEntry: !data.secureTextEntry
         });
     }
+
+    // const handleLogin = () => {
+    //     debugger;
+    //     props.login(
+    //         {
+    //             username: data.username,
+    //             password: data.password,
+    //         },
+    //         //  handleCallback,
+    //     );
+    //     props.navigation.navigate('home');
+    // };
 
     return (
         <>
@@ -130,7 +144,9 @@ const LoginScreen = ({ navigation, props }) => {
                             >
                                 <Text style={[styles.textSign, {
                                     color: '#fff'
-                                }]}>Sign In</Text>
+                                }]}
+                                    // onPress={() => handleLogin()}
+                                    >Sign In</Text>
                             </LinearGradient>
                         </TouchableOpacity>
 
@@ -156,7 +172,13 @@ const LoginScreen = ({ navigation, props }) => {
     );
 }
 
-export default LoginScreen;
+const mapStateToProps = ({ auth }) => ({
+    logging: auth.logging,
+    loginError: auth.loginError,
+});
+const mapDispatchToProps = (dispatch) =>
+    bindActionCreators({ login }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 
 const styles = StyleSheet.create({
     container: {
